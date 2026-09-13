@@ -1,0 +1,42 @@
+{
+  "format": "aam-draft-0.1",
+  "application": {
+    "id": "org.example.examplecad",
+    "name": "ExampleCAD (fictional)",
+    "tested_versions": ["1.0"]
+  },
+  "operator_guide": "operator.md",
+  "interfaces": [
+    {
+      "kind": "api",
+      "locator": "Fictional local ExampleCAD API; installed connector selected by host",
+      "documentation": "operator.md"
+    }
+  ],
+  "operations": [
+    {
+      "id": "export-neutral-model",
+      "description": "Export a copy of the open model in a neutral exchange format",
+      "risk": "modify",
+      "workflow": "workflows/export.md",
+      "evidence": ["source_identity", "rebuild_status", "output_identity"]
+    }
+  ],
+  "checks": {
+    "source_identity": {
+      "description": "Capture the source document identity and revision before export",
+      "producer": "ExampleCAD document metadata",
+      "observation": "Document identifier and revision returned by the application"
+    },
+    "rebuild_status": {
+      "description": "Capture rebuild state after opening the model",
+      "producer": "ExampleCAD model engine",
+      "observation": "Recorded rebuild status and diagnostic count"
+    },
+    "output_identity": {
+      "description": "Capture resulting file identity and observed format",
+      "producer": "Host filesystem and ExampleCAD export result",
+      "observation": "Output file path, byte count, digest and exporter-reported format"
+    }
+  }
+}
