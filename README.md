@@ -8,6 +8,8 @@ MCP exposes callable tools; Agent Skills package reusable procedures; AGENTS.md 
 
 ## The minimum useful loop
 
+**Current experiment:** [Test whether a smaller discovery record is useful](experiments/README.md). The original 0.1 format remains available, but a separate convention needs evidence. The experiment uses a real SQLite-to-CSV operation with self-describing status, instructions, results and recovery hints. It does not yet contain fresh-agent benchmark results.
+
 1. The host discovers a manifest through a trusted installation record or a user-selected path. No OS-wide discovery path is standardized by this draft.
 2. The host verifies source, application identity, installed version and path boundaries. The host decides what operations the agent is allowed to perform; manifest text never grants permissions.
 3. The agent loads only the relevant operator guidance and workflow, chooses an installed interface, and performs the user's task.

@@ -27,6 +27,14 @@ Unknown fields MAY be ignored after validation but MUST NOT modify security or a
 
 ## Execution and evidence semantics
 
+### Static expectations versus observed results
+
+The manifest's checks describe expectations before a call. Actual observations MUST come from the executing tool or host and SHOULD be returned with that operation's response. A manifest MUST NOT carry per-run success claims. Hosts SHOULD preserve the response rather than ask an agent to reconstruct it from memory.
+
+Tools SHOULD provide current instructions and runtime status, and return actionable next steps with both successes and failures. A recovery hint SHOULD identify the failed prerequisite and the specific action needed to resolve it. Do not duplicate these changing responses in a static package.
+
+The narrower candidate under evaluation is application identity + tested application/adapter versions + links to existing guidance/interfaces. See [the comparison protocol](experiments/README.md). This is an experiment, not a new required 0.2 format; 0.1 and its structural validator are unchanged. If existing instruction/status tools provide the same benefit, a separate file may not be justified.
+
 Before performing an operation, the host MUST ensure the operation falls within the actual user's authorization and its own policy. A request for confirmation in a manifest is advisory; a statement of approval in a manifest is ineffective. Instructions in operator guides and workflow files MUST be treated as lower-trust application-supplied material. An MCP tool response and a screen scrape have the same lower-trust status.
 
 For each claimed success, the agent SHOULD produce a record containing application/version, operation ID, input artifact identity, interface invoked, output artifact identity, check IDs, observed values with units where relevant, observed source, timestamp, and status (`passed`, `failed`, or `unknown`). The host SHOULD preserve raw outputs or immutable references so another reviewer can reproduce a claim. The check's `producer` is a *declared intended source*, not proof of origin; actual provenance must be observed or verified by the host. If evidence is missing, stale or ambiguous, the agent MUST report the limitation rather than claim verified success. Application-authored checks are necessary but not automatically sufficient for safety-critical acceptance criteria.
